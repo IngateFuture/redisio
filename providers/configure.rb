@@ -272,7 +272,7 @@ def configure
           clusternodetimeout:         current['clusternodetimeout'],
           includes:                   current['includes']
         )
-        not_if { ::File.exist?("#{current['configdir']}/#{server_name}.conf.breadcrumb") }
+        not_if { ::Dir.glob('"#{current['configdir']}/sentinel*.conf').any? && ::File.exist?("#{current['configdir']}/#{server_name}.conf.breadcrumb") }
       end
 
       file "#{current['configdir']}/#{server_name}.conf.breadcrumb" do
